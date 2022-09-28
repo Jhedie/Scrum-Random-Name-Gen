@@ -1,0 +1,76 @@
+<ng-template #nameModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">{{ optionName }}</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <form (ngSubmit)="submitEntry()" [formGroup]="nameForm">
+    <div class="modal-body">
+      <input
+        id="nameId"
+        class="form-control"
+        type="text"
+        placeholder="Enter name here:"
+        aria-label="name input"
+        formControlName="name"
+        [ngClass]="{
+          'is-invalid':
+            (nameForm.get('name')?.touched || nameForm.get('name')?.dirty) &&
+            !nameForm.get('name')?.valid
+        }"
+      />
+      <span class="invalid-feedback">
+        <span *ngIf="nameForm.get('name')?.errors?.['required']">
+          Please enter a name.
+        </span>
+      </span>
+    </div>
+    <div class="modal-footer">
+      <div class="closeButton-addButton"></div>
+      <button
+        type="button"
+        class="btn btn-light closeButton"
+        (click)="modal.close('Close click')"
+      >
+        Close
+      </button>
+      <button
+        type="submit"
+        class="btn btn-light addButton"
+        (click)="modal.close('Close click')"
+        [disabled]="!nameForm.valid"
+        [title]="
+          nameForm.valid
+            ? 'Save your entered data'
+            : 'Disabled untill name box filled'
+        "
+      >
+        Add
+      </button>
+    </div>
+  </form>
+</ng-template>
+
+<div *ngIf="optionName === 'Add Name'">
+  <button
+    type="button"
+    class="btn btn-primary w-100 addNameButton"
+    (click)="viewNameModal(nameModal)"
+  >
+    <i class="bi bi-plus-circle"></i>Add name
+  </button>
+</div>
+
+<div *ngIf="optionName === 'Edit Name'">
+  <button
+    type="button"
+    class="btn btn-primary cardaction-edit"
+    (click)="viewNameModal(nameModal) "
+  >
+    <i class="bi bi-pencil-fill"></i>
+  </button>
+</div>

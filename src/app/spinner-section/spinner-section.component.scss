@@ -1,0 +1,27 @@
+.rotationBox-spinButton {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  .rotationBox {
+    margin-top: 4rem;
+    height: 500px;
+    width: 100%;
+    border: 1px solid red;
+
+    .ring {
+      width: 100%;
+      height: 250px;
+      border: 1px solid green;
+      margin-top: 5rem;
+      transform-style: preserve-3d;
+    }
+  }
+
+  .spinButton {
+    height: 10%;
+    font-size: xx-large;
+    background-color: rgb(69, 105, 144);
+  }
+}

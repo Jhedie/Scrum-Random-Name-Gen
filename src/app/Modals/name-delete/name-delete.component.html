@@ -1,0 +1,46 @@
+<ng-template #deleteModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Delete Name Prompt</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-describedby="modal-title"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>
+      <strong
+        >Are you sure you want to delete
+        <span class="text-primary">{{ card.name }}</span
+        >?</strong
+      >
+    </p>
+    <p>
+      This name will be deleted
+      <span class="text-danger">This operation can not be undone.</span>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-secondary"
+      (click)="modal.dismiss('cancel click')"
+    >
+      Cancel
+    </button>
+    <button type="button" class="btn btn-danger" (click)="deleteEntry()">
+      Yes
+    </button>
+  </div>
+</ng-template>
+
+<div>
+  <button
+    type="button"
+    class="btn btn-primary cardaction-delete"
+    (click)="viewDeleteModal(deleteModal)"
+  >
+    <i class="bi bi-trash-fill"></i>
+  </button>
+</div>
