@@ -2,12 +2,14 @@
   <div class="cards">
     <div class="card" *ngFor="let card of cards">
       <div class="card-body">
+        <div class="cardId">{{ card.id }}</div>
         <div class="cardname">{{ card.name }}</div>
         <div class="cardactions-edit-delete">
           <app-add-or-edit
             optionName="Edit Name"
-            [cardname]="card.name"
-            (submitEntry)="editNameInList($event)"
+            [card]="card"
+            (editEntry)="editNameInList($event)"
+            optionButton="Edit"
           ></app-add-or-edit>
           <app-name-delete
             [card]="card"
@@ -20,5 +22,6 @@
   <app-add-or-edit
     optionName="Add Name"
     (submitEntry)="addNameToList($event)"
+    optionButton="Add"
   ></app-add-or-edit>
 </div>

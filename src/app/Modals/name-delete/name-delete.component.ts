@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Card } from 'src/app/name-list/card.model';
+import { Card } from 'src/app/Models/card.model';
 
 @Component({
   selector: 'app-name-delete',

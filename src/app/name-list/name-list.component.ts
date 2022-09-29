@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Card } from './card.model';
+import { Card } from '../Models/card.model';
+import { NameListingService } from '../Services/nameListingService/name-listing.service';
 
 @Component({
   selector: 'app-name-list',
@@ -7,25 +8,24 @@ import { Card } from './card.model';
   styleUrls: ['./name-list.component.scss'],
 })
 export class NameListComponent implements OnInit {
-  cardIdCount: number = 1;
   cards: Card[] = [];
-
+  constructor(private nameListingService: NameListingService) {}
   ngOnInit(): void {
-    localStorage.setItem('storedCards', JSON.stringify(this.cards));
+    this.cards = this.nameListingService.getAllNames();
   }
 
-  editNameInList(newName: string) {}
+  editNameInList(cardToBeEdited: Card) {
+    this.nameListingService.editNameInList(cardToBeEdited);
+    this.cards = this.nameListingService.getAllNames();
+  }
 
   addNameToList(newName: string) {
-    let newCard: Card = { id: this.cardIdCount, name: newName };
-    this.cardIdCount++;
-    this.cards.push(newCard);
+    this.nameListingService.addName(newName);
+    this.cards = this.nameListingService.getAllNames();
   }
 
   removeNameFromList(card: Card) {
-    let storedCards: Card[] =
-      JSON.parse(localStorage.getItem('cards') as any) || [];
-    storedCards.filter((currentCard) => currentCard.id === card.id);
-    localStorage.setItem('cards', JSON.stringify(storedCards));
+    this.nameListingService.removeNameFromList(card);
+    this.cards = this.nameListingService.getAllNames();
   }
 }

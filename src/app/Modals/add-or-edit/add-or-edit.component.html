@@ -49,7 +49,7 @@
             : 'Disabled untill name box filled'
         "
       >
-        Add
+        {{ optionButton }}
       </button>
     </div>
   </form>
@@ -69,7 +69,7 @@
   <button
     type="button"
     class="btn btn-primary cardaction-edit"
-    (click)="viewNameModal(nameModal) "
+    (click)="viewNameModal(nameModal)"
   >
     <i class="bi bi-pencil-fill"></i>
   </button>
