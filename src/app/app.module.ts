@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SpinnerSectionComponent } from './spinner-section/spinner-section.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NameDeleteComponent } from './Modals/name-delete/name-delete.component';
@@ -18,12 +17,7 @@ import { NameListComponent } from './name-list/name-list.component';
     NameDeleteComponent,
     AddOrEditComponent,
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    NgbModule,
-    ReactiveFormsModule,
-  ],
+  imports: [BrowserModule, NgbModule, ReactiveFormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })

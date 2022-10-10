@@ -8,11 +8,9 @@ export class NameListingService {
   cardIdCount: number = 1;
 
   getAllNames(): Card[] {
-    if (localStorage.getItem('storedCards') != null) {
-      return JSON.parse(localStorage.getItem('storedCards') as any);
-    } else {
-      return [];
-    }
+    return localStorage.getItem('storedCards') != null
+      ? JSON.parse(localStorage.getItem('storedCards') || '[]')
+      : [];
   }
   addName(newName: string) {
     let newCard: Card = { id: this.cardIdCount, name: newName };
@@ -22,7 +20,7 @@ export class NameListingService {
       localStorage.setItem('storedCards', JSON.stringify(cards));
     } else {
       let cards: Card[] = JSON.parse(
-        localStorage.getItem('storedCards') as any
+        localStorage.getItem('storedCards') || '[]'
       );
       localStorage.setItem('storedCards', JSON.stringify(cards));
       this.cardIdCount++;
@@ -30,13 +28,13 @@ export class NameListingService {
   }
 
   editNameInList(newCard: Card) {
-    let cards: Card[] = JSON.parse(localStorage.getItem('storedCards') as any);
+    let cards: Card[] = JSON.parse(localStorage.getItem('storedCards') || '[]');
     cards.splice(newCard.id - 1, 1, newCard);
     localStorage.setItem('storedCards', JSON.stringify(cards));
   }
 
   removeNameFromList(card: Card) {
-    let cards: Card[] = JSON.parse(localStorage.getItem('storedCards') as any);
+    let cards: Card[] = JSON.parse(localStorage.getItem('storedCards') || '[]');
     cards = cards.filter((currentCard) => currentCard.id - 1 === card.id);
     localStorage.setItem('storedCards', JSON.stringify(cards));
     this.cardIdCount = this.cardIdCount > 2 ? this.cardIdCount - 1 : 1;

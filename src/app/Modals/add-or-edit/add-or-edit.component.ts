@@ -8,20 +8,24 @@ import {
 } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Card } from 'src/app/Models/card.model';
-import { NameListingService } from 'src/app/Services/nameListingService/name-listing.service';
 
-const storedCards = localStorage.getItem(JSON.parse('storedCards')) || [];
+function nameIsPresentValidator(
+  c: AbstractControl
+): { [key: string]: boolean } | null {
+  let cardExists: string = JSON.parse(
+    localStorage.getItem('storedCards') || '[]'
+  )
+    .map((card: Card) => card.name)
+    .filter(
+      (name: string) =>
+        c.value === name && (c.value !== ' ' || c.value !== null)
+    );
+  if (cardExists.length > 0) {
+    return { nameExists: true };
+  }
+  return null;
+}
 
-// function nameIsPresentValidator(param: any): ValidatorFn {
-//   return (c: AbstractControl): { [key: string]: boolean } | null => {
-//     storedCards.forEach(card => {
-//       if (c.value === card.name) {
-//         return {'nameExists': true}
-//       }
-
-//     })
-//   };
-// }
 @Component({
   selector: 'app-add-or-edit',
   templateUrl: './add-or-edit.component.html',
@@ -34,16 +38,14 @@ export class AddOrEditComponent implements OnInit {
   @Input() card!: Card;
   @Output('submitEntry') nameEntry = new EventEmitter<string>();
   @Output('editEntry') nameEditEntry = new EventEmitter<Card>();
-  constructor(
-    public modal: NgbModal,
-    private nameListingService: NameListingService
-  ) {}
+  constructor(public modal: NgbModal) {}
 
   ngOnInit(): void {
     this.nameForm = new FormGroup({
       name: new FormControl(this.card?.name, [
         Validators.required,
         Validators.minLength(3),
+        nameIsPresentValidator,
       ]),
     });
   }

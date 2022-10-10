@@ -27,6 +27,12 @@
         <span *ngIf="nameForm.get('name')?.errors?.['required']">
           Please enter a name.
         </span>
+        <span *ngIf="nameForm.get('name')?.errors?.['minlength']">
+          You need 3 or more characters
+        </span>
+        <span *ngIf="nameForm.get('name')?.errors?.['nameExists']"
+          >Name already exists</span
+        >
       </span>
     </div>
     <div class="modal-footer">

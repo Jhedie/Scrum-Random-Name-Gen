@@ -1,27 +1,62 @@
+@keyframes back-spin {
+  // 0%    { transform: rotateX(0deg); }
+  100% {
+    transform: rotateX(30deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotateX(30deg);
+  }
+
+  100% {
+    transform: rotateX(-3719deg);
+  }
+}
+
 .rotationBox-spinButton {
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  .rotationBox {
+  #rotate {
+    transform-style: preserve-3d;
     margin-top: 4rem;
     height: 500px;
     width: 100%;
-    border: 1px solid red;
-
+  }
+  .rotationBox {
     .ring {
       width: 100%;
       height: 250px;
-      border: 1px solid green;
-      margin-top: 5rem;
       transform-style: preserve-3d;
     }
-  }
 
-  .spinButton {
-    height: 10%;
-    font-size: xx-large;
-    background-color: rgb(69, 105, 144);
+    .slot {
+      position: absolute;
+      top: 100%;
+      width: 100%;
+      height: 80px;
+      box-sizing: border-box;
+      opacity: 0.9;
+      color: rgba(0, 0, 0, 0.9);
+      background: #fff;
+      border: solid 2px #000;
+      p {
+        height: 100%;
+        font-size: 36px;
+        font-weight: bold;
+        line-height: 80px;
+        margin: 0;
+        text-align: center;
+      }
+    }
   }
+}
+.spinButton {
+  height: 10%;
+  font-size: xx-large;
+  background-color: rgb(69, 105, 144);
 }
