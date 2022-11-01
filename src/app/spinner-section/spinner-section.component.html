@@ -1,12 +1,13 @@
 <div class="rotationBox-spinButton">
   <div id="rotate" class="rotationBox">
-    <div id="mainRing" #mainRing class="ring"></div>
+    <canvas id="canvas" width="900" height="900"> </canvas>
   </div>
 
   <button
     type="button"
     class="btn btn-primary w-100 spinButton"
-    (click)="rotateFunction()">
+    (click)="rotateFunction()"
+  >
     <span>SPIN!</span>
   </button>
 </div>
