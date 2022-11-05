@@ -8,6 +8,7 @@ import { NameDeleteComponent } from './Modals/name-delete/name-delete.component'
 import { AddOrEditComponent } from './Modals/add-or-edit/add-or-edit.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NameListComponent } from './name-list/name-list.component';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import { NameListComponent } from './name-list/name-list.component';
     NameDeleteComponent,
     AddOrEditComponent,
   ],
-  imports: [BrowserModule, NgbModule, ReactiveFormsModule],
+  imports: [BrowserModule, NgbModule, ReactiveFormsModule, StoreModule.forRoot({}, {})],
   providers: [],
   bootstrap: [AppComponent],
 })

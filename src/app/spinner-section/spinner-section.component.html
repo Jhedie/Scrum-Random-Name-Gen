@@ -1,13 +1,21 @@
 <div class="rotationBox-spinButton">
   <div id="rotate" class="rotationBox">
-    <canvas id="canvas" width="900" height="900"> </canvas>
+    <canvas id="canvas" width="700" height="700"> </canvas>
   </div>
-
-  <button
-    type="button"
-    class="btn btn-primary w-100 spinButton"
-    (click)="rotateFunction()"
-  >
-    <span>SPIN!</span>
-  </button>
+  <div class="spinner-controls">
+    <button
+      type="button"
+      class="btn btn-primary spinButton"
+      (click)="rotateFunction()"
+    >
+      <span>SPIN!</span>
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary resetButton"
+      (click)="resetSpinner()"
+    >
+      <span>Reset</span>
+    </button>
+  </div>
 </div>

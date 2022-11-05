@@ -4,10 +4,21 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-
-  .spinButton {
-    height: 10%;
-    font-size: xx-large;
-    background-color: rgb(69, 105, 144);
+  .spinner-controls {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    .spinButton {
+      width: 45%;
+      height: 100%;
+      font-size: xx-large;
+      background-color: rgb(69, 105, 144);
+    }
+    .resetButton {
+      width: 45%;
+      height: 100%;
+      font-size: xx-large;
+      background-color: rgb(69, 105, 144);
+    }
   }
 }
