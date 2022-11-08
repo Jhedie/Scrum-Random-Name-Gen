@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
+import { map, Observable, of } from 'rxjs';
 import { Card } from '../Models/card.model';
 import { NameListingService } from '../Services/nameListingService/name-listing.service';
 
@@ -8,24 +9,28 @@ import { NameListingService } from '../Services/nameListingService/name-listing.
   styleUrls: ['./name-list.component.scss'],
 })
 export class NameListComponent implements OnInit {
-  cards: Card[] = [];
+  cards$: Observable<Card[]> = of([]);
   constructor(private nameListingService: NameListingService) {}
   ngOnInit(): void {
-    this.cards = this.nameListingService.getAllNames();
+    this.updateList();
+  }
+
+  updateList(): void {
+    this.cards$ = this.nameListingService.getAllNames();
   }
 
   editNameInList(cardToBeEdited: Card) {
     this.nameListingService.editNameInList(cardToBeEdited);
-    this.cards = this.nameListingService.getAllNames();
+    this.updateList();
   }
 
   addNameToList(newName: string) {
     this.nameListingService.addName(newName);
-    this.cards = this.nameListingService.getAllNames();
+    this.updateList();
   }
 
   removeNameFromList(card: Card) {
     this.nameListingService.removeNameFromList(card);
-    this.cards = this.nameListingService.getAllNames();
+    this.updateList();
   }
 }

@@ -27,25 +27,8 @@ export class SpinnerSectionComponent implements OnInit, AfterViewInit {
         spins: 8, // The number of complete 360 degree rotations the wheel is to do.
       },
     });
-
-    let c = this.theWheel.ctx;
-    console.log(c);
-    // Create pointer.
-    if (c) {
-      c.save();
-      c.lineWidth = 2;
-      c.strokeStyle = 'black';
-      c.fillStyle = 'black';
-      c.beginPath();
-      c.moveTo(350, 0);
-      c.lineTo(400, 0);
-      c.lineTo(350, 42);
-      c.lineTo(300, 0);
-      c.stroke();
-      c.fill();
-      c.restore();
-    }
   }
+
   ngOnInit(): void {
     this.nameList = JSON.parse(localStorage.getItem('storedCards') || '') || [];
     this.numSegments = this.nameList.length;

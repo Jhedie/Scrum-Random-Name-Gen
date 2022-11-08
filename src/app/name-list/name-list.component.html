@@ -1,8 +1,7 @@
 <div class="namelist">
   <div class="cards">
-    <div class="card" *ngFor="let card of cards">
+    <div class="card" *ngFor="let card of cards$ | async as cards">
       <div class="card-body">
-        <div class="cardId">{{ card.id }}</div>
         <div class="cardname">{{ card.name }}</div>
         <div class="cardactions-edit-delete">
           <app-add-or-edit

@@ -1,47 +1,54 @@
 import { Injectable } from '@angular/core';
+import { ReducerManagerDispatcher } from '@ngrx/store';
+import { map, Observable, of, tap } from 'rxjs';
 import { Card } from '../../Models/card.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NameListingService {
-  storedCards: Card[] =
+  private _storedCards: Card[] =
     localStorage.getItem('storedCards') != null
       ? JSON.parse(localStorage.getItem('storedCards') || '[]')
       : [];
-  getAllNames(): Card[] {
-    return this.storedCards;
+
+  get storedCards(): Card[] {
+    return this._storedCards;
+  }
+  set storedCards(newCards: Card[]) {
+    this._storedCards = newCards;
+    localStorage.setItem('storedCards', JSON.stringify(newCards));
+  }
+
+  getAllNames(): Observable<Card[]> {
+    return of(this.storedCards);
   }
   getNumberOfNames(): number {
     return this.storedCards.length;
   }
   addName(newName: string) {
-    let newCard: Card = { id: this.getNumberOfNames() + 1, name: newName };
-    if (localStorage.getItem('storedCards') == null) {
-      let cards: Card[] = [];
-      cards.push(newCard);
-      localStorage.setItem('storedCards', JSON.stringify(cards));
-    } else {
-      let cards: Card[] = JSON.parse(
-        localStorage.getItem('storedCards') || '[]'
-      );
-      cards.push(newCard);
-      localStorage.setItem('storedCards', JSON.stringify(cards));
-    }
+    const newCard: Card = { id: Math.random(), name: newName };
+    const newCards = [...this.storedCards, newCard];
+
+    this.storedCards = newCards;
   }
 
   editNameInList(newCard: Card) {
-    let cards: Card[] = JSON.parse(localStorage.getItem('storedCards') || '[]');
-    cards.splice(newCard.id - 1, 1, newCard);
-    localStorage.setItem('storedCards', JSON.stringify(cards));
+    const indexOfNewCard = this.storedCards.findIndex(
+      (card) => card.id === newCard.id
+    );
+    const newCards = [
+      ...this.storedCards.slice(0, indexOfNewCard),
+      newCard,
+      ...this.storedCards.slice(indexOfNewCard + 1),
+    ];
+    this.storedCards = newCards;
   }
 
   removeNameFromList(card: Card) {
-    let cards: Card[] = JSON.parse(localStorage.getItem('storedCards') || '[]');
-    let newStoredCards: Card[] = cards.filter(
+    const newCards = this.storedCards.filter(
       (currentCard) => currentCard.id !== card.id
     );
-    console.log(newStoredCards);
-    localStorage.setItem('storedCards', JSON.stringify(newStoredCards));
+    this.storedCards = newCards;
   }
 }
