@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
 import { ReducerManagerDispatcher } from '@ngrx/store';
-import { map, Observable, of, tap } from 'rxjs';
+import { BehaviorSubject, map, Observable, of, Subject, tap } from 'rxjs';
 import { Card } from '../../Models/card.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NameListingService {
+  subject: Subject<Card[]> = new BehaviorSubject(
+    localStorage.getItem('storedCards') != null
+      ? JSON.parse(localStorage.getItem('storedCards') || '[]')
+      : []
+  );
   private _storedCards: Card[] =
     localStorage.getItem('storedCards') != null
       ? JSON.parse(localStorage.getItem('storedCards') || '[]')
@@ -16,12 +21,13 @@ export class NameListingService {
     return this._storedCards;
   }
   set storedCards(newCards: Card[]) {
+    this.subject.next(newCards);
     this._storedCards = newCards;
     localStorage.setItem('storedCards', JSON.stringify(newCards));
   }
 
   getAllNames(): Observable<Card[]> {
-    return of(this.storedCards);
+    return this.subject;
   }
   getNumberOfNames(): number {
     return this.storedCards.length;

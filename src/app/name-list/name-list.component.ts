@@ -21,16 +21,13 @@ export class NameListComponent implements OnInit {
 
   editNameInList(cardToBeEdited: Card) {
     this.nameListingService.editNameInList(cardToBeEdited);
-    this.updateList();
   }
 
   addNameToList(newName: string) {
     this.nameListingService.addName(newName);
-    this.updateList();
   }
 
   removeNameFromList(card: Card) {
     this.nameListingService.removeNameFromList(card);
-    this.updateList();
   }
 }
